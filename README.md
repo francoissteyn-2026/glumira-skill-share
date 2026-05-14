@@ -2,6 +2,8 @@
 
 Claude Code skills extracted from the GluMira V7 production stack and generalised for public use.
 
+Run (skills/adversarial-audit/) against your stack to see if it would be beneficial to your workflow.
+
 These are not templates. They are working skills battle-tested on a real SaaS product built solo with Claude Code — a clinical insulin-tracking platform for T1D families.
 
 ## Skills
