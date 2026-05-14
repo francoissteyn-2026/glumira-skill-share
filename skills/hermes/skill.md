@@ -57,6 +57,19 @@ it at boot and calls its tools like any other MCP tool.
 >
 > **Fix:** open YOUR PowerShell (Start Menu → Windows PowerShell), then run the
 > installer line below. Do not run it through Claude Code's terminal.
+>
+> ### Two parallel installs are normal on Windows
+>
+> If you previously had Claude run the installer, you now have TWO installs:
+> - `AppData\Local\hermes\hermes-agent\.venv\` — Claude's sandbox install. Works for the MCP server inside Claude.
+> - `AppData\Local\hermes\hermes-agent\venv\` — Real user-space install. Works for your terminal CLI/TUI/gateway.
+>
+> Pointing `.mcp.json` at the real `venv\` path breaks the MCP server — Claude
+> spawns hermes.exe but Python's `from hermes_cli.main import main` fails because
+> MSIX read-virtualization scrambles the venv's `sys.path`. Keep `.mcp.json`
+> pointed at `.venv\Scripts\hermes.exe`. Live with the two installs — disk
+> cost is ~500 MB; maintenance burden is minimal because the MCP install is
+> long-lived (rarely needs updates).
 
 ### Windows (PowerShell)
 
