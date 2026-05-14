@@ -2,7 +2,7 @@
 name: ruflo
 description: >
   Use when the user says "swarm this", "ruflo", "hive-mind", "spawn a swarm",
-  "run a council", "10-agent audit", or when a task is too large or cross-cutting
+  "run a council", "10-agent audit", "/ruflo", or when a task is too large or cross-cutting
   for a single Claude session and needs parallel persistent agents with shared memory.
   Ruflo is a third-party MCP server — must be installed before this skill activates.
 ---
@@ -121,6 +121,43 @@ mcp__ruflo__hive-mind_consensus(
   options: ["jwt", "session"],
   threshold: 0.7
 )
+```
+
+---
+
+## `/ruflo` slash command
+
+Install a `/ruflo` Claude Code slash command for one-keystroke swarm launch with built-in Ruflo health check.
+
+Create `~/.claude/commands/ruflo.md` (global — works in every project):
+
+```markdown
+---
+description: Launch Ruflo 10-agent swarm. Usage: /ruflo <task> — e.g. /ruflo audit auth flow
+---
+
+# /ruflo — Swarm
+
+**Ruflo is SELECTED. This command routes directly to the Ruflo MCP — do not respond without calling its tools.**
+
+## Step 1 — Confirm Ruflo is live
+Call `mcp__ruflo__system_health` immediately. If any component returns `status: down`, report it and stop.
+
+## Step 2 — Parse the brief
+The task brief is: **$ARGUMENTS**
+If `$ARGUMENTS` is empty, default brief = `full audit of current working state against all hard constraints in CLAUDE.md`.
+
+## Step 3 — Swarm
+Spawn agents via `mcp__ruflo__hive-mind_spawn` or `mcp__ruflo__swarm_init` for the brief above.
+```
+
+After saving the file, `/ruflo` appears instantly in Claude Code's command list (no restart needed).
+
+**Usage:**
+```
+/ruflo                        # full codebase audit
+/ruflo audit the auth flow    # focused brief
+/ruflo fix IOB chart bug      # targeted swarm
 ```
 
 ---
