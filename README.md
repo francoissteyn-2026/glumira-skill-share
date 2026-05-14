@@ -8,6 +8,7 @@ These are not templates. They are working skills battle-tested on a real SaaS pr
 
 | Skill | What it does | Install time |
 |-------|-------------|--------------|
+| [`adversarial-audit`](skills/adversarial-audit/) | Attack any framework/skill/stack before adopting it. 5 angles, per-component verdict. | 1 min |
 | [`project-setup`](skills/project-setup/) | Step-by-step start + scope for any new project. 15 min → saves 15 sessions. | 15 min |
 | [`sparring-partner`](skills/sparring-partner/) | Challenge-first thinking. Find what kills the plan before you build it. | 1 min |
 | [`design-council`](skills/design-council/) | 9–11 parallel specialist agents debate your design in real time | 1 min |
@@ -21,6 +22,7 @@ These are not templates. They are working skills battle-tested on a real SaaS pr
 | [`closing-protocol`](skills/closing-protocol/) | Three-option task closer — locked, no variations | 1 min |
 | [`get-shit-done`](skills/get-shit-done/) | Behavioral override — execution mode, no permission-seeking | 1 min |
 | [`state-tracker`](skills/state-tracker/) | STATE.md + KNOWN_ISSUES.md — context continuity across sessions | 5 min |
+| [`openwhispr`](skills/openwhispr/) | Voice notes → Claude context. Search + pull transcriptions without leaving the terminal. | 2 min |
 
 ## Install
 
@@ -52,6 +54,7 @@ Claude Code auto-discovers skills in `.claude/skills/`. Invoke with the Skill to
 11. compact          → session discipline — fresh every 15-20 messages
 12. closing-protocol → LOCKED — every task ends with 1/2/3, always
 13. get-shit-done    → behavioral override — ship, don't ask
+14. openwhispr       → pull voice notes into session context (optional, needs desktop app or API key)
 ```
 
 ## Design council — full protocol included
