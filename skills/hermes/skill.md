@@ -110,6 +110,20 @@ model:
   provider: "anthropic"
 ```
 
+**Note on the setup wizard's default model:** the installer's setup wizard may
+write an older Sonnet ID (e.g. `claude-sonnet-4-5-20250929`) as the default,
+even when you select Anthropic. Switch to the latest inside the TUI:
+
+```
+/model claude-sonnet-4-6 --global
+```
+
+The `--global` flag persists the choice to `config.yaml`. Without it the
+switch is session-only and the next `hermes` launch reverts. You may see
+"could not verify `claude-sonnet-4-6` against this endpoint's model listing"
+— this is benign; Anthropic doesn't expose `GET /v1/models` so hermes can't
+enumerate. The model is accepted and billed normally.
+
 ---
 
 ## Wire as MCP server
