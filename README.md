@@ -1,4 +1,4 @@
-# GluMira Skill Share
+﻿# GluMira Skill Share
 
 Claude Code skills extracted from the GluMira V7 production stack and generalised for public use.
 
@@ -98,4 +98,4 @@ MIT. Use, adapt, share. Attribution appreciated but not required.
 
 ---
 
-Built by [@francoissteyn01](https://github.com/francoissteyn01-hash) — GluMira V7
+Built by [@francoissteyn01](https://github.com/francoissteyn-2026) — GluMira V7
