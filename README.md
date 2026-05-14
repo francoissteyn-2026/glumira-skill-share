@@ -27,6 +27,11 @@ These are not templates. They are working skills battle-tested on a real SaaS pr
 | [`openwhispr`](skills/openwhispr/) | Voice notes → Claude context. Search + pull transcriptions without leaving the terminal. | 2 min |
 | [`hermes`](skills/hermes/) | NousResearch Hermes Agent as MCP server — web search, cron, Telegram gateway, subagents | 15 min |
 | [`playwright`](skills/playwright/) | Microsoft Playwright MCP — full browser automation, screenshots, E2E flows, post-deploy checks | 2 min |
+| [`supabase-migrations`](skills/supabase-migrations/) | Schema versioning discipline — every change in a migration file, RLS template, type generation | 5 min |
+| [`deploy-verifier`](skills/deploy-verifier/) | Post-deploy health checks — HTTP status, critical routes, env var canary, Vercel rollback | 2 min |
+| [`security-audit`](skills/security-audit/) | npm audit + Snyk CVE scanning + OWASP code review pass, wired into closing protocol | 5 min |
+| [`vitest-e2e`](skills/vitest-e2e/) | Vitest + Playwright E2E discipline — TDD workflow, test gate before every commit | 10 min |
+| [`sentry`](skills/sentry/) | Production error monitoring — React SDK, source maps, Sentry MCP for querying issues in Claude | 15 min |
 
 ## Install
 
@@ -61,6 +66,11 @@ Claude Code auto-discovers skills in `.claude/skills/`. Invoke with the Skill to
 14. openwhispr       → pull voice notes into session context (optional, needs desktop app or API key)
 15. hermes           → standalone agent as MCP server — Telegram gateway, cron, web search, subagents
 16. playwright       → browser automation — verify every deploy before you summarize and commit
+17. supabase-migrations → schema versioning — no schema change ships without a migration file
+18. deploy-verifier  → post-deploy health check — HTTP status, routes, env canary, rollback
+19. security-audit   → CVE scan + OWASP pass — runs before every commit that touches deps or auth
+20. vitest-e2e       → test gate — TDD workflow, no commit ships with a red suite
+21. sentry           → production error monitoring — Sentry MCP queries issues from inside Claude
 ```
 
 ## Design council — full protocol included
