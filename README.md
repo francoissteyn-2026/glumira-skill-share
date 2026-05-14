@@ -23,6 +23,7 @@ These are not templates. They are working skills battle-tested on a real SaaS pr
 | [`get-shit-done`](skills/get-shit-done/) | Behavioral override — execution mode, no permission-seeking | 1 min |
 | [`state-tracker`](skills/state-tracker/) | STATE.md + KNOWN_ISSUES.md — context continuity across sessions | 5 min |
 | [`openwhispr`](skills/openwhispr/) | Voice notes → Claude context. Search + pull transcriptions without leaving the terminal. | 2 min |
+| [`hermes`](skills/hermes/) | NousResearch Hermes Agent as MCP server — web search, cron, Telegram gateway, subagents | 15 min |
 
 ## Install
 
@@ -55,6 +56,7 @@ Claude Code auto-discovers skills in `.claude/skills/`. Invoke with the Skill to
 12. closing-protocol → LOCKED — every task ends with 1/2/3, always
 13. get-shit-done    → behavioral override — ship, don't ask
 14. openwhispr       → pull voice notes into session context (optional, needs desktop app or API key)
+15. hermes           → standalone agent as MCP server — Telegram gateway, cron, web search, subagents
 ```
 
 ## Design council — full protocol included
