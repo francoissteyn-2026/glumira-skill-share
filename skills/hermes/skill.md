@@ -41,6 +41,23 @@ it at boot and calls its tools like any other MCP tool.
 
 ## Install
 
+> ### ⚠ Windows: install from YOUR OWN terminal, NOT from inside Claude Code
+>
+> Claude Code on Windows is a packaged (MSIX) app with identity `Claude_pzs8sxrjxfjjc`.
+> Anything Claude's Bash/PowerShell tools install at `C:\Users\<you>\AppData\Local\...`
+> gets silently **virtualized** to `C:\Users\<you>\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\...`.
+> Inside Claude, both paths look identical (`Test-Path` returns true, `where hermes` finds it).
+> **Outside Claude, that path is empty.** Worse — the generated `hermes.exe` launcher
+> embeds a hardcoded virtualized path for `python.exe`, so the binary cannot run
+> from your terminal even with the full Packages\ path.
+>
+> **Symptom:** you `irm | iex` the installer through Claude, everything looks fine,
+> but in your own PowerShell `hermes` returns "not recognized as the name of a cmdlet"
+> — and pasting the full path returns the SAME error.
+>
+> **Fix:** open YOUR PowerShell (Start Menu → Windows PowerShell), then run the
+> installer line below. Do not run it through Claude Code's terminal.
+
 ### Windows (PowerShell)
 
 ```powershell
@@ -56,6 +73,11 @@ curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scri
 The installer handles Python, uv, Node.js, ripgrep, ffmpeg, and Playwright.
 On Windows, `pywinpty` requires MSVC — if not present, the installer falls
 through to "core only" (all tools except the TUI). Core is sufficient for MCP.
+
+**Important — venv naming:** the Windows installer creates `hermes-agent\venv\`
+(no leading dot), not `.venv\`. Update every PATH and `.mcp.json` reference
+accordingly. The older skill version used `.venv` — that was from a previous
+installer release and is wrong for the current script.
 
 **Verify:**
 ```bash
@@ -114,7 +136,7 @@ model:
 {
   "mcpServers": {
     "hermes": {
-      "command": "C:\\Users\\<you>\\AppData\\Local\\hermes\\hermes-agent\\.venv\\Scripts\\hermes.exe",
+      "command": "C:\\Users\\<you>\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\hermes.exe",
       "args": ["mcp", "serve", "--accept-hooks"],
       "env": {
         "HERMES_HOME": "C:\\Users\\<you>\\AppData\\Local\\hermes",
@@ -125,7 +147,8 @@ model:
 }
 ```
 
-Replace `<you>` with your Windows username.
+Replace `<you>` with your Windows username. Note: `venv` not `.venv` — the
+current installer drops the leading dot.
 
 ### Step 2 — Activate in `.claude/settings.json`
 
@@ -232,15 +255,26 @@ If it fails, run `hermes doctor` — it diagnoses provider auth, PATH, and confi
 
 ## Troubleshooting
 
-**Windows: `hermes` not found after install**
-The installer may set PATH to `venv\Scripts` instead of `.venv\Scripts`.
-Fix in PowerShell:
+**Windows: `hermes` not found after install (you ran the installer from your OWN terminal)**
+The installer adds `venv\Scripts` to **User** PATH. If you opened a terminal
+*before* the installer finished, restart that terminal. Fresh terminals will
+pick up the new PATH automatically.
+
+If you need hermes available in **admin/elevated** terminals too, add it to
+Machine PATH (one-time, elevated):
 ```powershell
-$old = "$env:LOCALAPPDATA\hermes\hermes-agent\venv\Scripts"
-$new = "$env:LOCALAPPDATA\hermes\hermes-agent\.venv\Scripts"
-$path = [Environment]::GetEnvironmentVariable("PATH","User")
-[Environment]::SetEnvironmentVariable("PATH", $path -replace [regex]::Escape($old),$new, "User")
+$scripts = "$env:LOCALAPPDATA\hermes\hermes-agent\venv\Scripts"
+$mp = [Environment]::GetEnvironmentVariable("PATH","Machine")
+if ($mp -notlike "*$scripts*") {
+    [Environment]::SetEnvironmentVariable("PATH", "$mp;$scripts", "Machine")
+}
 ```
+
+**Windows: `hermes` not found after install (you ran the installer from inside Claude Code)**
+See the warning at the top of "Install". Symptom: the binary appears to exist
+inside Claude but doesn't exist in your own terminal. Fix: re-run the installer
+from your OWN PowerShell. The Claude-side install is trapped in the MSIX
+sandbox and unrecoverable from outside.
 
 **`hermes_cli` ModuleNotFoundError on setup wizard**
 Harmless — occurs because the setup wizard launches before the venv is on PATH.
