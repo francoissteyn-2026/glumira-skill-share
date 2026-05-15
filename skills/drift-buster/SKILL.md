@@ -5,10 +5,30 @@ description: >
   published pharmacokinetic sources — wrong PK parameter lookup, zero-start violations,
   peakless-insulin peak violations, stacking arithmetic errors, or axis/legend mismatches.
   Designed for clinical insulin visualisation tools but adaptable to any PK curve renderer.
+
+  AUTO-ACTIVATES on mention of any insulin brand or protocol keyword. Always run before
+  editing anything insulin-related, even if the user hasn't explicitly asked for it.
+
+  Insulin brands (any mention triggers): Levemir, Actrapid, Tresiba, Fiasp, Humalog,
+  NovoRapid, Insulatard, Toujeo, Lantus, Basaglar, Lyumjev, Degludec, Glargine, Detemir,
+  NPH, Humulin N, Regular insulin, Insulin R, ultra-rapid, rapid-acting, long-acting,
+  intermediate-acting, basal insulin, bolus insulin.
+
+  Protocol keywords (any mention triggers): TID, BID, OD, once-daily, twice-daily,
+  three-times-daily, SC, IM, subcutaneous, intramuscular, basal regimen, bolus regimen,
+  split-dose, mixed regimen, correction dose, sliding scale, insulin regimen, dosing
+  protocol, insulin plan, paediatric insulin protocol.
+
+  PK resource keywords (any mention triggers): Plank 2005, PMID, DOA, duration of action,
+  pharmacokinetics, PK model, PK curve, PK profile, PK source, IOB engine, insulin engine,
+  albumin_bound, decay_model, peak rate, onset, offset, PK reference, pk_source.
+
   Trigger phrases: "drift buster", "drift-buster", "chart looks wrong", "iob looks off",
   "check the curve", "audit the iob", "bust drift", "something is wrong with the chart",
-  "dose not matching", "iob drifting", "pk curve wrong".
-  Args: none = audit current branch · <insulin name> = scope to one profile.
+  "dose not matching", "iob drifting", "curve looks wrong", "pk looks wrong",
+  "check insulin", "check the pk", "validate the curve".
+
+  Args: none = audit current branch · <insulin name> = scope to one insulin profile.
 ---
 
 # Drift Buster — IOB / PK Curve Integrity Audit
